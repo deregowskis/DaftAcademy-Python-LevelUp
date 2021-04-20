@@ -5,12 +5,13 @@ app = FastAPI()
 
 @app.get("/")
 def root():
-    response.status_code=200
     return {"message": "Hello world!"}
 
 
 @app.get("/method")
 def getmethod():
+    request = client.get(f"/method")
     if request.method == 'GET':
-        response.status_code=200
         return {"method": "GET"}
+
+
