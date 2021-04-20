@@ -9,7 +9,7 @@ def root():
 
 
 @app.get("/method")
-def getmethod(request: Request):
+def getmethod(request):
     return {"method": request.method}
 
 
