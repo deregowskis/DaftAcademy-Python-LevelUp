@@ -10,7 +10,6 @@ def root():
 
 @app.get("/method")
 def getmethod():
-    request = client.get(f"/method")
     if request.method == 'GET':
         return {"method": "GET"}
 
