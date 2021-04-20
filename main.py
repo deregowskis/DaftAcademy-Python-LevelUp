@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+import requests
 
 app = FastAPI()
 
@@ -9,7 +10,6 @@ def root():
 
 @app.get("/method")
 def getmethod(request: Request):
-    if request.method == 'GET':
-        return {"method": "GET"}
+    return {"method": request.method}
 
 
