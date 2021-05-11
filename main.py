@@ -36,10 +36,7 @@ async def customers():
 
 @app.get("/products/{id}")
 async def products(id: int):
-    product = app.db_connection.execute('''SELECT ProductID, ProductName
-                                           FROM Products
-                                           WHERE ProductID = :id
-                                           ''', {'id': id}).fetchone()
+    product = app.db_connection.execute('''select ProductID, ProductName from Products where ProductID = :id''', {'id': id}).fetchone()
     if product is None:
         raise HTTPException(status_code=404)
     return {"id": product[0], "name": product[1]}
