@@ -22,17 +22,12 @@ async def main():
 
 @app.get("/categories")
 async def categories():
-    categories = app.db_connection.execute('''SELECT CategoryID AS id, CategoryName AS name
-                                              FROM Categories
-                                              ORDER BY id
-                                              ''')
-    return {"categories": [{"id": row[0], "name": row[1]} for row in categories]}
+    categories = app.db_connection.execute('''select CategoryID as id, CategoryName as name from Categories order by id''')
+    return {"categories": [{"id": record[0], "name": record[1]} for record in categories]}
 
 
 @app.get("/customers")
 async def customers():
-    customers = app.db_connection.execute('''Select CustomerID AS id, CompanyName AS name, COALESCE(Address,''), COALESCE(PostalCode,''), COALESCE(City,''), COALESCE(Country,'')
-                                             FROM Customers
-                                             ORDER BY id COLLATE NOCASE
+    customers = app.db_connection.execute('''select CustomerID as id, CompanyName as name, Address, PostalCode, City, Country from Customers order by id
                                              ''')
     return {"customers": [{"id": row[0], "name": row[1], "full_address": "{} {} {} {}".format(row[2], row[3], row[4], row[5])} for row in customers]}
