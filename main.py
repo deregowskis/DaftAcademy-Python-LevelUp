@@ -34,7 +34,7 @@ async def customers():
                                              ''')
     return {"customers": [{"id": row[0], "name": row[1], "full_address": "{} {} {} {}".format(row[2], row[3], row[4], row[5])} for row in customers]}
 
-@app.get("/products/[id]")
+@app.get("/products/{id}")
 async def products(id: int):
     product = app.db_connection.execute('''select ProductID, ProductName from Products where ProductID = :id''', {'id': id}).fetchone()
     if product is None:
