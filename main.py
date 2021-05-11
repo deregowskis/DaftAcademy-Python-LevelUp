@@ -1,19 +1,13 @@
 from fastapi import FastAPI, Response, status, HTTPException
-from typing import NoReturn, Optional
-from pydantic import BaseModel
 import sqlite3
 import sys
 
 app = FastAPI()
 
-class Category(BaseModel):
-    name: str
-
-
 @app.on_event("startup")
 async def startup():
     app.db_connection = sqlite3.connect("northwind.db")
-    app.db_connection.text_factory = lambda b: b.decode(errors="ignore")
+    app.db_connection.text_factory = lambda b: b.decode(errors="ignore")  # northwind specific 
 
 
 @app.on_event("shutdown")
