@@ -28,6 +28,6 @@ async def categories():
 
 @app.get("/customers")
 async def customers():
-    customers = app.db_connection.execute('''select CustomerID as id, CompanyName as name, Address, PostalCode, City, Country from Customers order by id collate nocase''').fetchall()
+    customers = app.db_connection.execute('''select CustomerID as id, CompanyName as name, coalesce(Address,""), coalesce(PostalCode,""), coalesce(City,""), coalesce(Country,"") from Customers order by id collate nocase''').fetchall()
     return {"customers": [{"id": record[0], "name": record[1], "address": record[2], "postalcode": record[3],
                             "city": record[4], "country": record[5]} for row in customers]}
