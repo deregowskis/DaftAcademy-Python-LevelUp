@@ -4,10 +4,12 @@ import sys
 
 app = FastAPI()
 
+
+
 @app.on_event("startup")
 async def startup():
     app.db_connection = sqlite3.connect("northwind.db")
-    app.db_connection.text_factory = lambda b: b.decode(errors="ignore")  # northwind specific 
+    app.db_connection.text_factory = lambda b: b.decode(errors="ignore")
 
 
 @app.on_event("shutdown")
@@ -31,3 +33,4 @@ async def customers():
                                              ORDER BY id COLLATE NOCASE
                                              ''')
     return {"customers": [{"id": row[0], "name": row[1], "full_address": "{} {} {} {}".format(row[2], row[3], row[4], row[5])} for row in customers]}
+
